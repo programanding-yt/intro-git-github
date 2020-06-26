@@ -25,8 +25,8 @@ En el momento en que tengamos un repositorio en nuestro ordenador, ya sea al hab
 ## [*Stage*](https://dev.to/sublimegeek/git-staging-area-explained-like-im-five-1anh)
 En nuestro *working tree* podemos realizar diferentes tipos de cambios: agregar, eliminar o modificar archivos y directorios. El *stage* es el conjunto de cambios que deseamos incluir **antes** de que pasen a formar parte del repositorio . Estos cambios **aun no son finales**, y podemos sacarlos del área de *stage* cuantas veces queramos. 
 ### Agregar y eliminar archivos de stage
-Para agregar un archivo al *stage*, utilizamos el comando ```git add <nombre del archivo>```
-Para eliminar un archivo del *stage*, utilizamos el comando ```git rm <nombre del archivo>```
+- Para agregar un archivo al *stage*, utilizamos el comando ```git add <nombre del archivo>```
+- Para eliminar un archivo del *stage*, utilizamos el comando ```git rm <nombre del archivo>```
 ## *Commit*
 Después de que hayamos agregado cambios en el área de *stage*, podemos **confirmar** dichos cambios y guardarlos en el repositorio, mediante el comando ```git commit```. Al realizar esta operación, nuestra área de *stage* estará vacía nuevamente, pues los cambios han pasado a formar parte del repositorio de manera oficial.
 ## git log
