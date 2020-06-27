@@ -61,7 +61,7 @@ Para revisar a detalle los cambios realizados en un *commit*, utilizamos el coma
 Antes vimos qué es un repositorio remoto y cómo clonar uno. En esta sección aprenderemos las operaciones más comunes al trabajar con repos remotos: push, pull y pull request. 
 ### *Remote*
 Git nos permite indicar una o más URLs de un repositorio/repositorios remoto(s) que queremos asociar a nuestro repositorio local. A esta configuración se le conoce como *remote*. Al clonar un repositorio, el *remote* se configura automáticamente, y Git le asigna el nombre de *origin*. Para saber cuál es nuestra configuración de *remote*, utilizamos el comando ```git remote -v```
-#### Asociar un repositorio local a un repositorio remoto
+### Asociar un repositorio local a un repositorio remoto
 Es común que estemos trabajando en un repositorio local y decidamos guardar nuestro trabajo también en un repositorio remoto. Para esto hay que seguir los siguientes pasos:
 1. Guardar nuestro trabajo local con un *commit*
 2. Crear un repositorio remoto en Github o alguna otra plataforma
@@ -70,7 +70,7 @@ Es común que estemos trabajando en un repositorio local y decidamos guardar nue
 git remote add <nombre_remote> <url_repo>
 # La norma es utilizar 'origin' como el nombre remoto, pero puedes usar el nombre que quieras
 ```
-##### git push
+### git push
 Hasta este paso, ya le hemos indicado a Git cuál es el nombre de nuestro repositorio remoto y su URL, pero no hemos enviado nuestros cambios. Para ello utilizamos el comando ```git push```
 4. Enviar nuestros cambios
 ```bash
@@ -78,7 +78,7 @@ git push -u <nombre_remote> <nombre_rama>
 ```
 - La bandera ```-u / --set-upstream``` guarda nuestra configuración de upstream, que consiste en el *remote* y la rama, para que la siguiente vez que utilicemos el comando solo tengamos que escribir ```git push```. Esta configuración también aplica para el comando ```git pull```.
 - Con estos pasos nuestros cambios se encontrarán en el repositorio remoto que hayamos configurado
-##### git pull
+### git pull
 - La operación 'opuesta' a *push* es ```git pull```, que obtiene los cambios remotos y los integra a nuestro repositorio local
 - Si no existe una configuración de *upstream* para la branch en la que estemos trabajando, el comando ```git pull``` no funcionará. Para configurar el upstream en una rama, podemos utilizar cualquiera de los dos siguientes comandos:
 ```bash
@@ -92,10 +92,56 @@ git branch --set-upstream-to=<upstream>
 git pull <nombre_remote> <nombre_rama>
 # Este comando **no** guarda la configuración de *upstream*
 ```
-> Nota: Es bueno saber que, internamente, ```git pull``` ejecuta los comandos ```git fetch``` y ```git merge```. El primero obtiene los cambios remotos y el segundo los integra a nuestra rama actual 
-## git merge
-### Resolver conflictos
-## Pull request
+> Nota: Internamente, ```git pull``` ejecuta los comandos ```git fetch``` y ```git merge```. El primero obtiene los cambios remotos y el segundo los integra a nuestra rama actual 
+### git merge
+- Una vez que hayamos completado los cambios necesarios en una rama, podemos integrar esos cambios a otra rama mediante un *merge*. Para ello, hay que movernos a la rama que queremos que reciba los cambios, y utilizar el comando ```git merge <nombre_rama>```. 
+- Supongamos el siguiente ejemplo: 
+1. Existe un repositorio de una página web.
+2. Queremos agregar un cambio al archivo ```home.html```
+3. Creamos una rama llamada ```feature1```
+```bash
+git checkout -b feature1
+```
+4. Hemos terminado de agregar los cambios a nuestra rama
+```bash
+git a home.html
+git commit -m "se completó feature1"
+```
+5. Realizamos el *merge* de la rama ```feature1```a la rama ```master```
+```bash
+git checkout master
+git merge feature1
+```
+6. Enviamos los cambios al repo remoto
+```bash
+git push
+```
+#### *Merge conflicts*
+- Cuando modificamos la misma parte de un mismo archivo en diferentes ramas, se generan conflictos o *merge conflicts* al momento de realizar el *merge*. Cuando esto sucede, Git nos lo hace saber y nos pide que resolvamos dichos conflictos. El formato en que se presentan los conflictos es parecido al siguiente:
+```
+<<<<<<< HEAD:home.html
+<h1>Home de Antonio</h1>
+=======
+<h1>Home | Antonio 
+</h1>
+>>>>>>> feature1:home.html
+```
+- En este ejemplo, la versión de arriba (```HEAD```) corresponde a la última versión, que es la que recibirá los cambios. Mientras que la de abajo corresponde al cambio procedente de la rama que queremos integrar. La línea ```=======``` indica la separación entre las dos versiones
+##### Resolver *merge conflicts*
+- Para resolver estos conflictos, seguimos los siguientes pasos:
+1. Abrir los archivos con conflictos, decidir qué versión queremos mantener, o si queremos combinarlas, y eliminar las líneas agregadas por Git:
+```
+<h1>Home de Antonio</h1>
+```
+2. Agregar los archivos a *stage*, con lo cual le indicamos a Git que hemos resuelto los conflictos:
+```bash
+git a home.html
+```
+3. Hacer un *commit*. Con esto damos por concluido tanto la resolución de conflictos como el *merge*
+```bash
+git commit
+```
+### Pull request
 ## EXTRAS
 ### Gitflow
 ### Herramientas gráficas para trabajar con git: Github Desktop, Sourcetree, etc
