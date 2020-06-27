@@ -28,13 +28,21 @@ En nuestro *working tree* podemos realizar diferentes tipos de cambios: agregar,
 - Para agregar un archivo al *stage*, utilizamos el comando ```git add <nombre del archivo>```
 - Para eliminar un archivo del *stage*, utilizamos el comando ```git rm <nombre del archivo>```
 ## *Commit*
-Después de que hayamos agregado cambios en el área de *stage*, podemos **confirmar** dichos cambios y guardarlos en el repositorio, mediante el comando ```git commit```. Al realizar esta operación, nuestra área de *stage* estará vacía nuevamente, pues los cambios han pasado a formar parte del repositorio de manera oficial.
-## git log
+Después de que hayamos realizado cambios en el área de *stage*, podemos **confirmar** dichos cambios y guardarlos en el repositorio, mediante el comando ```git commit```. Al realizar esta operación, nuestra área de *stage* estará vacía nuevamente, pues los cambios han pasado a formar parte del repositorio de manera oficial.
+```git commit -m "<mensaje commit>```
+```git commit -a```: Agregar de manera automática al *stage* y al *commit* los archivos que hayan sido modificados o eliminados. Aplica únicamente para archivos ya existentes.
 ### Ignorar archivos
+Es común que haya archivos y directorios en nuestro proyecto que no queramos monitorear, como archivos de *build*, archivos del sistema, dependencias externas, etc. Git nos permite esta funcionalidad con ayuda del archivo ```.gitignore```.
+En él podemos indicar archivos específicos a ignorar, directorios, extensiones. [ejemplo](https://github.com/facebook/create-react-app/blob/master/.gitignore)
+Estos archivos nunca formarán parte de nuestra área de *stage*, por lo tanto tampoco del *commit* ni del repositorio
 ### Inspeccionar un commit
+Para revisar a detalle los cambios realizados en un *commit*, utilizamos el comando ```git show <hash>```
 ## Ramas
+Una de las mejores características de Git es el uso de ramas. Una 
 ### Creación de ramas
 ### Moverse entre ramas
+### *Log*
+Para examinar la lista completa de *commits* incluídos en nuestra rama actual, utilizamos el comando ```git log``` (más adelante veremos qué es una rama)
 ## Trabajar con un repositorio remoto
 ### git push
 ### git pull
