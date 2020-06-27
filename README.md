@@ -76,12 +76,23 @@ Hasta este paso, ya le hemos indicado a Git cuál es el nombre de nuestro reposi
 ```bash
 git push -u <nombre_remote> <nombre_rama>
 ```
-- La bandera ```-u / --set-upstream``` guarda nuestra configuración de *remote* y de la rama, para que la siguiente vez que utilicemos el comando solo tengamos que escribir ```git push```. Esta configuración también aplica para el comando ```git pull```.
+- La bandera ```-u / --set-upstream``` guarda nuestra configuración de upstream, que consiste en el *remote* y la rama, para que la siguiente vez que utilicemos el comando solo tengamos que escribir ```git push```. Esta configuración también aplica para el comando ```git pull```.
 - Con estos pasos nuestros cambios se encontrarán en el repositorio remoto que hayamos configurado
 ##### git pull
-La operación 'opuesta' a *push* es ```git pull```, que obtiene los cambios remotos y los integra a nuestro repositorio local. 
-```git pull```
-
+- La operación 'opuesta' a *push* es ```git pull```, que obtiene los cambios remotos y los integra a nuestro repositorio local
+- Si no existe una configuración de *upstream* para la branch en la que estemos trabajando, el comando ```git pull``` no funcionará. Para configurar el upstream en una rama, podemos utilizar cualquiera de los dos siguientes comandos:
+```bash
+git branch -u <upstream>
+git branch --set-upstream-to=<upstream>
+# Recuerda que ```git push -u``` también guarda esta configuración
+```
+- Si deseas saber si tienes un *upstream* configurado, utiliza el comando ```git branch -vv```, que enlistará el *upstream* (si es que existe) de todas las ramas en tu repositorio
+- Si queremos realizar un pull a un *upstream* distinto al que tenemos configurado, podemos utilizar el siguiente comando:
+```bash
+git pull <nombre_remote> <nombre_rama>
+# Este comando **no** guarda la configuración de *upstream*
+```
+> Nota: Es bueno saber que, internamente, ```git pull``` ejecuta los comandos ```git fetch``` y ```git merge```. El primero obtiene los cambios remotos y el segundo los integra a nuestra rama actual 
 ## git merge
 ### Resolver conflictos
 ## Pull request
