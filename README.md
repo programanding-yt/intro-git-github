@@ -1,12 +1,21 @@
 # Curso práctico de Git y Github nivel básico
 En este curso básico, aprenderás los conceptos fundamentales de Git y su integración con Github, para que puedas comenzar a utilizarlo en tus proyectos.
 ## Introducción
-Git es un controlador de versiones distribuido, de código abierto, que se utiliza para llevar el control de cambios en un proyecto de software. Fue creado por Linus Torvalds, quien también creó el kernel de Linux.
-### Principales características
+- Git es un controlador de versiones distribuido, de código abierto, que se utiliza para llevar el control de cambios en un proyecto de software. Fue creado por Linus Torvalds, quien también creó el kernel de Linux.
+- Github es una plataforma para llevar el control de repositorios online. Nos permite crear repositorios públicos y privados, clonarlos, trabajar en equipos de desarrollo, etc. Github es propiedad de Microsoft.
+- Algunas alternativas a Github son: 
+ - [GitLab](https://about.gitlab.com/)
+ - [Bitbucket](https://bitbucket.org/)
+ - [SourceForge](https://sourceforge.net/)
+### Principales características de Git
 - Distribuido: toda persona que trabaja en el repositorio tiene un backup completo del mismo, no hay un sistema central. La única manera de que se pierda el trabajo de un proyecto es si existe solo una copia del mismo
 - Gratuito y de código abierto. [Repo github](https://github.com/git/git)
 - Veloz: dado que la mayoría de operaciones en Git se realizan de manera local, y a que está escrito primordialmente en C, Git es sumamente veloz, incluso al trabajar con proyectos muy grandes
 - Flexible: por su naturaleza distribuida, Git permite utilizar cualquier modo de trabajo que se ajuste a las necesidades del proyecto o equipo de desarrollo
+## Configuración básica
+- Antes de comenzar a trabajar con Git, te recomiendo que configures tu nombre y correo electrónico. Esto para identificar los cambios que realices en un repositorio.
+- ```git config --global user.name "[nombre]"```
+- ```git config --global user.email "[email]"```
 ## Repositorios
 Un repositorio es el 'almacén' en el cual se guardará nuestro código, puede contener cualquier cantidad de archivos y carpetas, y estos archivos pueden tener diferentes extensiones. Es en este repositorio en donde Git se encargará de controlar las diferentes versiones de nuestro proyecto, las cuales podemos acceder en cualquier momento que deseemos.
 ### Local vs remoto
@@ -44,11 +53,46 @@ Para revisar a detalle los cambios realizados en un *commit*, utilizamos el coma
 ### Moverse entre ramas
 - Para movernos a una rama, utilizamos el comando ```git checkout <nombre_rama>```
 - Podemos crear una rama y movernos automáticamente a la misma mediante el comando ```git checkout -b <nombre_rama>```
+### Listado de ramas
+- Para ver todas las ramas en nuestro repositorio, utilizamos el comando ```git branch```. Un `*` aparecerá a lado de nuestra rama actual
 ### *Log*
 - Para examinar la lista completa de *commits* incluídos en nuestra rama actual, utilizamos el comando ```git log```
-## Trabajar con un repositorio remoto
-### git push
-### git pull
+## Trabajar con repositorios remotos
+Antes vimos qué es un repositorio remoto y cómo clonar uno. En esta sección aprenderemos las operaciones más comunes al trabajar con repos remotos: push, pull y pull request. 
+### *Remote*
+Git nos permite indicar una o más URLs de un repositorio/repositorios remoto(s) que queremos asociar a nuestro repositorio local. A esta configuración se le conoce como *remote*. Al clonar un repositorio, el *remote* se configura automáticamente, y Git le asigna el nombre de *origin*. Para saber cuál es nuestra configuración de *remote*, utilizamos el comando ```git remote -v```
+#### Asociar un repositorio local a un repositorio remoto
+Es común que estemos trabajando en un repositorio local y decidamos guardar nuestro trabajo también en un repositorio remoto. Para esto hay que seguir los siguientes pasos:
+1. Guardar nuestro trabajo local con un *commit*
+2. Crear un repositorio remoto en Github o alguna otra plataforma
+3. Configurar el *remote* a la URL del repositorio que creamos, mediante el siguiente comando:
+```bash
+git remote add <nombre_remote> <url_repo>
+# La norma es utilizar 'origin' como el nombre remoto, pero puedes usar el nombre que quieras
+```
+##### git push
+Hasta este paso, ya le hemos indicado a Git cuál es el nombre de nuestro repositorio remoto y su URL, pero no hemos enviado nuestros cambios. Para ello utilizamos el comando ```git push```
+4. Enviar nuestros cambios
+```bash
+git push -u <nombre_remote> <nombre_rama>
+```
+- La bandera ```-u / --set-upstream``` guarda nuestra configuración de upstream, que consiste en el *remote* y la rama, para que la siguiente vez que utilicemos el comando solo tengamos que escribir ```git push```. Esta configuración también aplica para el comando ```git pull```.
+- Con estos pasos nuestros cambios se encontrarán en el repositorio remoto que hayamos configurado
+##### git pull
+- La operación 'opuesta' a *push* es ```git pull```, que obtiene los cambios remotos y los integra a nuestro repositorio local
+- Si no existe una configuración de *upstream* para la branch en la que estemos trabajando, el comando ```git pull``` no funcionará. Para configurar el upstream en una rama, podemos utilizar cualquiera de los dos siguientes comandos:
+```bash
+git branch -u <upstream>
+git branch --set-upstream-to=<upstream>
+# Recuerda que ```git push -u``` también guarda esta configuración
+```
+- Si deseas saber si tienes un *upstream* configurado, utiliza el comando ```git branch -vv```, que enlistará el *upstream* (si es que existe) de todas las ramas en tu repositorio
+- Si queremos realizar un pull a un *upstream* distinto al que tenemos configurado, podemos utilizar el siguiente comando:
+```bash
+git pull <nombre_remote> <nombre_rama>
+# Este comando **no** guarda la configuración de *upstream*
+```
+> Nota: Es bueno saber que, internamente, ```git pull``` ejecuta los comandos ```git fetch``` y ```git merge```. El primero obtiene los cambios remotos y el segundo los integra a nuestra rama actual 
 ## git merge
 ### Resolver conflictos
 ## Pull request
