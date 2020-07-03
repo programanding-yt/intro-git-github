@@ -142,6 +142,11 @@ git a home.html
 git commit
 ```
 ### Pull request
+En la mayoría de los equipos de desarrollo, no podemos hacer *merge* a *master* directamente, necesitamos un ```pull request``` o ```PR```. Esta es una especie de solicitud que hacemos al equipo de desarrollo para que nos permita realizar un *merge* a *master*, o a cualquier otra rama restringida. Recibe su nombre porque estamos pidiendo a la rama principal que haga *pull* de nuestros cambios.
 ## EXTRAS
-### Gitflow
+### [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+Es una metodología de trabajo en Git muy famosa, te la recomiendo
 ### Herramientas gráficas para trabajar con git: Github Desktop, Sourcetree, etc
+- [Github Desktop](https://desktop.github.com/)
+- [Sourcetree](https://www.sourcetreeapp.com/)
+- [Gitkraken](https://www.gitkraken.com/)
